@@ -8,8 +8,9 @@ poissonInterarrival = function(n, rateParameter) {
   return(sapply(1:n,function(i) -log(1.0 - runif(1)) / rateParameter))
 }
 
-# Randomly calculate message interarrivals using Poisson processes
-messages = data.table("Interarrival" = nextTime(1000,1/10))
+# Randomly calculate message interarrivals using Poisson processes.  You could also manually set the interarrival to a constant number
+numberOfMessages = 1000
+messages = data.table("Interarrival" = poissonInterarrival(numberOfMessages,1/10))
 # Sum up interarrivals to get timestamps for each message
 messages[,Timestamp:=cumsum(Interarrival)]
 
