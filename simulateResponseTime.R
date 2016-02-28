@@ -1,6 +1,8 @@
 require(data.table)
 require(ggplot2)
 
+
+
 # Compile the calculateResponseTime function
 Rcpp::sourceCpp('responseTimeGenerator.cpp')
 
@@ -14,7 +16,7 @@ messages = data.table("Interarrival" = poissonInterarrival(numberOfMessages,1/10
 # Sum up interarrivals to get timestamps for each message
 messages[,Timestamp:=cumsum(Interarrival)]
 
-# Assigning each message a constant service time.  You could use a distribution here
+# Assigning each message a constant service time.  You could sample from a distribution here
 serviceTime=5
 messages[,serviceTime := serviceTime]
 
